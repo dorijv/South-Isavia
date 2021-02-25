@@ -1,82 +1,79 @@
-# Verkefni 9
+# Vefforritun 2, 2021, verkefni 4
 
-## Lýsing
+[Verkefnið byggir á verkefni 9 í vefforritun 1, 2020](https://github.com/vefforritun/vef1-2020-v9-synilausn).
 
-Verkefni 9 sækir gögn um jarðskjálfta frá USGS og birtir á korti með [Leaflet](https://leafletjs.com/).
+Bæta skal við server sem situr á milli beiðna frá client til USGS (proxyar beiðnir), þessi proxy notar redis til að cache gögn á milli fyrirspurna.
 
-![](./screenshot)
+Einnig skal bæta við möguleikum á að sækja öll gögn eftir tímabili og stærðargráðu, í `index.html` er búið að setja upp lista af tenglum á hverja týpu. Útfæra þarf virkni í framenda sem sækir rétt gögn gegnum proxy þjónustu. Beiðnir á proxy þjónustu ættu að taka við querystring breytum, t.d. `/proxy?period=hour&type=significant` og skila gögnum ásamt auka lýsigögnum um fyrirspurn.
 
-### Viðmót
+### Lýsigögn um fyrirspurn
 
-Gefið er `index.html` skjal og grunnur að skrám sem fylla skal inn í m.v. athugasemdir í þeim.
+Lýsigögn um fyrirspurn innihalda tvö gildi:
 
-Gefið er `styles.css` skjal með grunnstílum, ekki þarf að bæta við þá.
+* Hvort gögn hafi verið sótt úr cache eða ekki
+* Hversu lengi tók að sækja gögn í sekúndum (hvort heldur sem er úr cache eða með fetch), sjá `./src/time.js`
 
-Virkni skal vera:
+Formið á þeim ætti að vera:
 
-* Gögn eru sótt með `fetch` innan úr `lib/earthquakes.js`
-* Kort er útbúið og sett inn í `.map` með Leaflet
-* Ef gögn komu er `.loading` div fjarlægt
-* Fyrir hvern jarðskjálfta er:
-  * Búið til `li` innan `ul.earthquakes` með gögnum, dagsetning er formuð með `lib/utils.js` `formatDate()` falli. Sjá dæmi um HTML sem CSS gerir ráð fyrir innan athugasemdar í `index.html`
-  * Búinn er til marker á korti út frá GeoJSON gögnum, [sjá leiðbeiningar um að nota GeoJSON með Leaflet](https://leafletjs.com/reference-1.7.1.html#geojson)
-  * Búið til popup sem fest er við marker með sömu upplýsingum um skjálfta (hint: hægt að nota `element()` hjálparfall og `outerHTML`)
-  * Takkinn „sjá á korti“ birtir popup á korti þegar smellt er á hann
+```javascript
+{
+  data, // gögn um jarðskjálfta
+  info: {
+    cached: true,
+    elapsed: 0.500,
+  },
+};
+```
 
-### Kóði
+Gögnin skal síðan birta á framenda.
 
-Setja skal kóða með ES6 modules, þ.e.a.s. `import export`.
+![](./utlit.png)
 
-Gefin er grunnur og eru athugasemdir þar.
+### Fetch
 
-Setja þarf upp tól:
+Bæði framendi (client) og bakendi (server) munu gera `fetch` köll og mikilvægt er að gera sér fulla grein á muninn á þeim.
 
-* `eslint` með plugins eins og í verkefni 8
-* `babel`
-* `rollup` með plugins til að geta notað NPM module
-* `browser-sync`
-* `concurrently`
-* `leaflet`
+Framendi á proxy þjónustu bakenda, og bakendi á USGS þjónustu, ef gögn eru ekki í cache.
 
-`rollup` skal sjá um að pakka JavaScript kóða og gera aðgengilegann í `dist/`.
+## Tæki og tól
 
-Leaflet þarf CSS, en þar sem ekki þarf að setja upp pökkun á CSS í þessu verkefni er hægt að vísa í `node_modules/leaflet/dist/leaflet.css` til að fá CSS. Sjá `index.html`.
+Gefinn er grunnur, byggður á sýnilausn á verkefni 9 úr vef1. Búið að tengja saman browser-sync og nodemon þ.a. `npm run dev` virkar sem skildi.
 
-Einnig er leyfilegt að nota `date-fns` til að forma dagsetningar, sjá gefinn kóða.
+Nota skal `node-fetch` á bakenda.
 
-Þegar verkefni er metið er `npm install` keyrt fyrst, síðan `npm run dev` á að keyra upp verkefni og opna vafra glugga, að lokum `npm test` sem á að keyra eslint og sýna engar villur.
+Setja skal upp `redis` og nota til að cachea gögn.
 
+Setja skal verkefnið upp á Heroku með cache virkni.
 ## Mat
 
-* 15% Engar eslint villur í kóða
-* 15% Tól sett upp
-* 20% Leaflet kort sett upp
-* 20% Gögn sótt frá USGS
-* 30% Gögn birt í viðmóti
+* 20% – Bakenda virkni sett upp og virkar með gefinni framenda virkni
+* 30% – Proxy virkni á bakenda sett upp og notar redis
+* 30% – Viðbætur á framenda til að geta sótt gögn gegnum proxy
+* 20% – Verkefni sett upp á Heroku með cache virkni
 
 ## Sett fyrir
 
-Verkefni sett fyrir í fyrirlestri mánudaginn 2. nóvember 2020.
+Verkefni sett fyrir í fyrirlestri fimmtudaginn 25. febrúar 2021.
 
 ## Skil
 
-Skila skal í Canvas í seinasta lagi fyrir lok dags þriðjudaginn 10. nóvember 2020.
+Skila skal í Canvas í seinasta lagi fyrir lok dags laugardaginn 13. mars 2021.
 
-Skilaboð skulu innihalda slóð á GitHub repo fyrir verkefni, og dæmatímakennurum skal hafa verið boðið í repo ([sjá leiðbeiningar](https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository)). Notendanöfn þeirra eru:
+Skilaboð skulu innihalda slóð á Heroku og slóð á GitHub repo fyrir verkefni, og dæmatímakennurum skal hafa verið boðið í repo ([sjá leiðbeiningar](https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository)). Notendanöfn þeirra eru:
 
-* `GaddiSunshine`
-* `boxandri`
-* `StimmiKex`
 * `jonnigs`
-* `Tobbasn`
-* `thth168`
+* `mimiqkz`
+* `Steinalicious`
+* `zurgur`
 
-Hver dagur eftir skil dregur verkefni niður um 10%, allt að 30% ef skilað föstudaginn 13. nóvember 2020 en þá lokar fyrir skil.
+Hver dagur eftir skil dregur verkefni niður um 10%, allt að 20% ef skilað mánudaginn 15. mars 2021 en þá lokar fyrir skil.
 
 ## Einkunn
 
-Sett verða fyrir tíu minni verkefni þar sem átta bestu gilda 5% hvert, samtals 40% af lokaeinkunn.
+Sett verða fyrir 6 minni verkefni þar sem 5 bestu gilda 8% hvert, samtals 40% af lokaeinkunn.
 
 Sett verða fyrir tvö hópverkefni þar sem hvort um sig gildir 10%, samtals 20% af lokaeinkunn.
+
+---
 
 > Útgáfa 0.1

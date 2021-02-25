@@ -1,9 +1,9 @@
-import { format } from "date-fns";
+import { format } from 'date-fns';
 
 /**
  * Create an element with attributes and events, and append elements or
  * strings to it.
- * 
+ *
  * Usage:
  *  const el = element(
  *    'button',
@@ -13,16 +13,17 @@ import { format } from "date-fns";
  *   );
  *  returns
  *  <button class="button">Takki</button> with a click handler.
- * 
+ *
  * @param {string} name Element name
  * @param {object} attributes Object containing attributes to attach to element.
  * @param {object} events Object of events to add to element.
  * @param  {...any} children List of elements or strings to append to element.
  * @returns {object} HTML element.
  */
-export function element(name, attributes = null, events = null,...children) {
-  const el = document.createElement(name);
+export function element(name, attributes = null, events = null, ...children) {
+  const e = document.createElement(name);
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const child of children) {
     if (!child) {
       continue;
@@ -30,31 +31,31 @@ export function element(name, attributes = null, events = null,...children) {
 
     if (attributes) {
       for (const attrib in attributes) {
-        console.log('attrib :>> ', attrib);
-        el.setAttribute(attrib, attributes[attrib]);
+        e.setAttribute(attrib, attributes[attrib]);
       }
     }
 
     if (events) {
+      // eslint-disable-next-line no-restricted-syntax
       for (const event in events) {
-        el.addEventListener(event, events[event]);
+        e.addEventListener(event, events[event]);
       }
     }
 
     if (typeof child === 'string') {
-      el.appendChild(document.createTextNode(child));
+      e.appendChild(document.createTextNode(child));
     } else {
-      el.appendChild(child);
+      e.appendChild(child);
     }
   }
 
-  return el;
+  return e;
 }
 
 /**
  * Simplified element function.
  * Creates an element and append elements or strings to it.
- * 
+ *
  * @param {string} name Element name
  * @param  {...any} children List of elements or strings to append to element.
  * @returns {object} HTML element.
@@ -65,7 +66,7 @@ export function el(name, ...children) {
 
 /**
  * Format a timestamp as dd.mm.yyyy hh:mm:ss e.g. "01.11.2020 12:00:00".
- * 
+ *
  * @param {number} timestamp Unix timestamp to format
  * @returns {string} Formatted string.
  */

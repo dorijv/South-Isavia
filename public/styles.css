@@ -62,6 +62,10 @@ h1 {
   margin-bottom: 1em;
 }
 
+.hidden {
+  display: none;
+}
+
 ul {
   list-style: none;
 }
@@ -97,5 +101,26 @@ button {
 }
 
 footer {
+  margin-bottom: 1em;
+}
+
+ul.nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ul.nav li {
+  margin: 0;
+  padding: 0;
+}
+
+ul.nav > li {
+  margin-bottom: 1em;
+  margin-right: 1em;
+
+}
+
+.cache {
+  font-size: 1.5em;
   margin-bottom: 1em;
 }

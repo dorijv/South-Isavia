@@ -1,34 +1,42 @@
 {
-  "name": "vef1-2020-v9-synilausn",
+  "name": "vef2-2021-v4-synilausn",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "rollup": "rollup -c",
     "rollup-watch": "rollup -c -w",
-    "browser-sync": "browser-sync start --server --files index.html ./styles.css ./dist/bundle.js",
-    "dev": "concurrently npm:browser-sync npm:rollup-watch",
+    "browser-sync": "browser-sync start --proxy 'localhost:3001' --files index.html ./public/styles.css ./public/dist/bundle.js",
+    "nodemon": "nodemon ./src/app.js",
+    "dev": "concurrently npm:nodemon npm:browser-sync npm:rollup-watch",
+    "start": "node ./src/app.js",
+    "build": "concurrently npm:rollup",
     "test": "eslint *.js **/*.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "@rollup/plugin-babel": "^5.2.1",
-    "@rollup/plugin-commonjs": "^16.0.0",
-    "@rollup/plugin-node-resolve": "^10.0.0",
-    "browser-sync": "^2.26.13",
-    "concurrently": "^5.3.0",
-    "eslint": "^7.12.1",
-    "eslint-config-airbnb-base": "^14.2.0",
+    "@babel/cli": "^7.12.17",
+    "@babel/core": "^7.12.17",
+    "@babel/preset-env": "^7.12.17",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "browser-sync": "^2.26.14",
+    "concurrently": "^6.0.0",
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
-    "rollup": "^2.32.1"
+    "nodemon": "^2.0.7",
+    "rollup": "^2.39.0"
   },
   "dependencies": {
-    "date-fns": "^2.16.1",
-    "leaflet": "^1.7.1"
+    "date-fns": "^2.17.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "leaflet": "^1.7.1",
+    "node-fetch": "^2.6.1",
+    "redis": "^3.0.2"
   }
 }

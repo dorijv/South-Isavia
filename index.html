@@ -6,32 +6,59 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Verkefni 9</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
   <div class="wrapper">
     <div class="earthquakes-container">
-      <h1>Jarðskjálftar 4,5+ á richter seinustu 30 daga</h1>
-      <p class="loading">Hleð gögnum...</p>
+      <ul class="nav">
+        <li class="list">
+          <h2>Seinustu klukkustund</h2>
+          <ul>
+            <li><a href="/?period=hour&type=significant">Verulegir jarðskjálftar</a></li>
+            <li><a href="/?period=hour&type=4.5">4,5+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=hour&type=2.5">2,5+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=hour&type=1.0">1,0+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=hour&type=all">Allir jarðskjálftar</a></li>
+          </ul>
+        </li>
+        <li class="list">
+          <h2>Seinasta dag</h2>
+          <ul>
+            <li><a href="/?period=day&type=significant">Verulegir jarðskjálftar</a></li>
+            <li><a href="/?period=day&type=4.5">4,5+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=day&type=2.5">2,5+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=day&type=1.0">1,0+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=day&type=all">Allir jarðskjálftar</a></li>
+          </ul>
+        </li>
+        <li class="list">
+          <h2>Seinustu viku</h2>
+          <ul>
+            <li><a href="/?period=week&type=significant">Verulegir jarðskjálftar</a></li>
+            <li><a href="/?period=week&type=4.5">4,5+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=week&type=2.5">2,5+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=week&type=1.0">1,0+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=week&type=all">Allir jarðskjálftar</a></li>
+          </ul>
+        </li>
+        <li class="list">
+          <h2>Seinasta mánuð</h2>
+          <ul>
+            <li><a href="/?period=month&type=significant">Verulegir jarðskjálftar</a></li>
+            <li><a href="/?period=month&type=4.5">4,5+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=month&type=2.5">2,5+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=month&type=1.0">1,0+ á richter jarðskjálftar</a></li>
+            <li><a href="/?period=month&type=all">Allir jarðskjálftar</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <h1></h1>
+      <p class="loading hidden">Hleð gögnum...</p>
+      <p class="cache"></p>
       <ul class="earthquakes">
 
-        <!--
-          <li>
-            <div>
-              <h2>M 4.6 - 105 km NNW of Villa General Roca, Argentina</h2>
-              <dl>
-                <dt>Tími</dt>
-                <dd>02.11.2020 05:10:46</dd>
-                <dt>Styrkur</dt>
-                <dd>4.6 á richter</dd>
-              </dl>
-              <div class="buttons">
-                <button>Sjá á korti</button>
-                <a href="https://earthquake.usgs.gov/earthquakes/eventpage/us7000c95h" target="_blank">Skoða nánar</a>
-              </div>
-            </div>
-          </li>
-        -->
       </ul>
       <footer>
         <a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php">Gögn frá USGS</a>
