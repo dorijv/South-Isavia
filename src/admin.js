@@ -1,7 +1,7 @@
 import express from 'express';
 import { catchErrors } from './utils.js';
 //import { deleteRow, getSignatures, getTotalSignatureCount } from './db.js';
-import { testGetFlights } from './db.js';
+import { testGetFlights, markFlight } from './db.js';
 import passport, { ensureLoggedIn } from './authentication.js';
 
 export const router = express.Router();
@@ -34,9 +34,9 @@ async function login(req, res) {
 }
 
 async function deleteSignature(req, res) {
-  const { id } = req.body;
+  const { flightid, arrdep } = req.body;
 
-  await deleteRow([id]);
+  await markFlight(flightid, arrdep);
 
   return res.redirect('/admin');
 }

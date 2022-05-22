@@ -110,7 +110,7 @@ export async function findByUsername(username) {
 }
 
 export async function testGetFlights() {
-  const q = "SELECT *, TO_CHAR(estimated, 'HH24:MI') FROM flights ORDER BY estimated";
+  const q = "SELECT *, TO_CHAR(estimated, 'HH24:MI') FROM flights WHERE finished = false ORDER BY estimated";
     try {
       const result = await query(q);
       console.log(result)
@@ -136,7 +136,7 @@ export async function findGate(flightid) {
   const q = 'SELECT gate FROM FLIGHTS WHERE flightid like $1';
   try {
     const result = await query(q, [flightid]);
-    return result;
+    return result[0];
   } catch(e) {
     console.error('Gat ekki sótt hlið frá flugnúmeri', e);
     return null;
@@ -154,9 +154,22 @@ export async function fixGate(flightid, gate) {
   }
 }
 
+export async function markFlight(flightid, arrdep) {
+  const q = 'UPDATE FLIGHTS SET finished = true WHERE flightid LIKE $1 AND arrDepBool LIKE $2';
+  try {
+    const result = await query(q, [flightid, arrdep]);
+    console.log('Flug merkt!', flightid, arrdep);
+    return result;
+  } catch(e) {
+    console.error('Gat ekki merkt flug', e);
+    return null;
+  }
+}
+
 async function checkUpdate(flightid, gate) {
-  let oldGate = findGate(flightid);
-  if (oldGate !== gate) {
+  let oldGate = await findGate(flightid);
+  console.log(oldGate.gate);
+  if (oldGate.gate !== gate) {
     fixGate(flightid, gate);
   }
 }

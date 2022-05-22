@@ -8,11 +8,15 @@
 			<p> <%= item.origin %> </p>
 			<p> <%= item.status %> </p>
 			<p> <%= item.to_char %> </p>
-			<h3 class="flightGateP"> <%= item.gate %> </h3>
+			<h3 class="flightGateP"> <%= item.gate %> </h3a>
 			</div>
 			<div class="flightItemBox">
 			<img src="./img/<%=item.arrdepbool%>.png">
+			<form method="post" action="/admin/delete">
+			<input type="hidden" name="flightid" value="<%=item.flightid %>">
+			<input type="hidden" name="arrdep" value="<%=item.arrdepbool %>">
 			<button>Merkja</button>
+			</form>
 			</div>
 		</div>
 	<% }) %>
