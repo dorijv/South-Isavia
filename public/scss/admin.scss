@@ -1,0 +1,92 @@
+.flights {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 auto;
+  justify-content: center;
+  width: 80%;
+}
+
+.flightItem {
+  background-color: #f6f7c1;
+  border: 1px $black solid;
+  border-radius: 7.5px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  width: 100%;
+  position: relative;
+  padding: 5px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.flightItemText {
+  width: 50%;
+}
+
+.flightItemText p {
+  font-family: 'Rubik', sans-serif;
+  font-size: 20px;
+  margin: 0 auto;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.flightItemBox {
+  display: flex;
+  flex-flow: column;
+  margin: 0 auto;
+  width: 50%;
+  max-width: 168px;
+  justify-content: center;
+}
+
+.flightItemBox button{
+  height: 40px;
+  width: 100%;
+  font-family: 'Rubik', sans-serif;
+  text-transform: uppercase;
+  background: none;
+  border: 2px solid;
+  line-height: 1;
+  font-size: 16px;
+}
+
+.flightItemBox img {
+  max-heigt: 160px;
+  max-width: 160px;
+}
+
+.flightItem.C {
+  background-color: $limegreen;
+}
+
+.flightItem.D {
+  background-color: $blueblue;
+
+}
+
+.flightItem.A {
+  background-color: $maroonred;
+}
+
+.flightGateP {
+  margin: 0 auto;
+  margin-top: 8px;
+  font-size: 36px;
+}
+
+.admin {
+  display: flex;
+  margin: 0 auto;
+}
+
+.admin__Information {
+  display: flex;
+  margin: 0 auto;
+  width: 90%;
+  justify-content: space-around;
+}
+
+.admin__Information a {
+  margin-top: 16px;
+}

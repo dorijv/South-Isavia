@@ -1,0 +1,19 @@
+
+
+<div class="flights">
+	<% result.forEach(( item ) => { %>
+		<div class="flightItem <%=item.gate.charAt(0)%>">
+			<div class="flightItemText">
+			<p> <%= item.flightid %> </p>
+			<p> <%= item.origin %> </p>
+			<p> <%= item.status %> </p>
+			<p> <%= item.to_char %> </p>
+			<h3 class="flightGateP"> <%= item.gate %> </h3>
+			</div>
+			<div class="flightItemBox">
+			<img src="./img/<%=item.arrdepbool%>.png">
+			<button>Merkja</button>
+			</div>
+		</div>
+	<% }) %>
+</div>

@@ -1,0 +1,13 @@
+<%- include('header') -%>
+<div class="admin">
+    <div class="admin__Information">
+        <p>Innskráður sem: </p>
+        <% if(locals.user) { %>
+        <p class="admin__DisplayedUser"><%= locals.user.username %></p>
+        <% } %>
+        <a href="/logout">Útskrá</a>
+    </div>
+</div>
+<%- include('flightList') -%>
+<script src="./dist/bundle.js"></script>
+<%-include('footer') -%>

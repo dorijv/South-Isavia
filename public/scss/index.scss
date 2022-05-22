@@ -1,0 +1,88 @@
+.header__Title {
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.indexDiv {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.indexDiv a {
+	text-decoration: none;
+	color: black;
+	font-size: 36px;
+	margin-top: 36px;
+	font-family: 'Rubik', sans-serif;
+  	text-transform: uppercase;
+  	background: none;
+  	padding: 5px;
+  	border: 2px solid;
+}
+
+.signin {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+.signin form {
+	width: 75%;
+}
+
+.signin a {
+	width: 75%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.field label {
+  font-size: 1.375rem;
+}
+
+.field input,
+.field textarea {
+  border: 1px solid #888;
+  border-radius: 3px;
+  max-width: 800px;
+  padding: 8px;
+}
+
+.errorText {
+  text-align: center;
+}
+
+.field textarea {
+  flex: 1;
+  min-height: 6rem;
+}
+
+.fieldCheckBox {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.signin button {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 15px;
+  width: 200px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 24px;
+}
+
