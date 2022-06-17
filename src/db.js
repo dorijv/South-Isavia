@@ -39,12 +39,12 @@ export async function insert(flightID, arrDepBool, origin, status, scheduled, es
   const q = 'INSERT INTO flights(flightID, arrDepBool, origin, status, scheduled, estimated, gate, finished) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
   const values = [flightID, arrDepBool, origin, status,
                   scheduled, estimated, gate, finished];
-
   try {
     await query(q, values);
   } catch (e) {
     console.error('Error', e);
     checkUpdate(flightID, gate);
+    updateTime(flightID, arrDepBool, estimated);
     return 'error';
   }
 
@@ -154,11 +154,23 @@ export async function fixGate(flightid, gate) {
   }
 }
 
-export async function markFlight(flightid, arrdep) {
+export async function updateTime(flightid, arrdep, estimated) {
+  const q = 'UPDATE FLIGHTS SET estimated = $1 WHERE flightid LIKE $2 AND arrDepBool LIKE $3';
+  try {
+    const result = await query(q, [estimated, flightid, arrdep]);
+    return result;
+  } catch(e) {
+    console.error('Gat ekki uppfært tímasetningu!', e);
+    return null;
+  }
+}
+
+export async function markFlight(flightid, arrdep, gate) {
   const q = 'UPDATE FLIGHTS SET finished = true WHERE flightid LIKE $1 AND arrDepBool LIKE $2';
   try {
     const result = await query(q, [flightid, arrdep]);
     console.log('Flug merkt!', flightid, arrdep);
+    //checkClosingStatus(flightid, arrdep,)
     return result;
   } catch(e) {
     console.error('Gat ekki merkt flug', e);
@@ -166,10 +178,34 @@ export async function markFlight(flightid, arrdep) {
   }
 }
 
+/*
+
+Sækja count í staðinn?
+
+Einangra Bókstaf úr Gate, finna LIKE '%GATE'
+
+export async function findByGate(gate) {
+  const q = 'SELECT * FROM FLIGHTS WHERE gate like $1 AND finished = false';
+  try {
+    const result = await query(q, [gate]);
+    return result;
+  } catch (e) {
+    console.error('Gat ekki sótt flug útfrá hliði!', e);
+    return null;
+  }
+}
+
+async function checkClosingStatus(flightid, arrDepBool, gate) {
+  let oldFlight = await findByGate(gate);
+  if (oldFlight === []) console.log('Null virkar');
+  console.log(oldFlight);
+}
+
+*/
+
 async function checkUpdate(flightid, gate) {
-  let oldGate = await findGate(flightid);
-  console.log(oldGate.gate);
-  if (oldGate.gate !== gate) {
+  let oldFlight = await findGate(flightid);
+  if (oldFlight.gate !== gate) {
     fixGate(flightid, gate);
   }
 }

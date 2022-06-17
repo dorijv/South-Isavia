@@ -34,9 +34,9 @@ async function login(req, res) {
 }
 
 async function deleteSignature(req, res) {
-  const { flightid, arrdep } = req.body;
+  const { flightid, arrdep, gate } = req.body;
 
-  await markFlight(flightid, arrdep);
+  await markFlight(flightid, arrdep, gate);
 
   return res.redirect('/admin');
 }

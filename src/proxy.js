@@ -43,6 +43,7 @@ router.get('/', async (req, res) => {
 
   result.arrJSON.Items.forEach((flight) => {
     if( flight.Gate.charAt(0) !== 'D' && flight.Gate.charAt(0) !== 'C' && flight.Gate !== 'A15') return;
+    if (flight.Estimated == null) flight.Estimated = flight.Scheduled;
     var plusEight = new Date();
     plusEight.setHours( plusEight.getHours() + 8 );
     if (Date.parse(flight.Estimated) > Date.now() && Date.parse(flight.Estimated) <= plusEight) {
@@ -53,6 +54,7 @@ router.get('/', async (req, res) => {
 
   result.depJSON.Items.forEach((flight) => {
     if( flight.Gate.charAt(0) !== 'D' && flight.Gate.charAt(0) !== 'C' && flight.Gate !== 'A15') return;
+    if (flight.Estimated == null) flight.Estimated = flight.Scheduled;
     var plusEight = new Date();
     plusEight.setHours( plusEight.getHours() + 8 );
     if (flight.Estimated === null) flight.Estimated = flight.Scheduled;
