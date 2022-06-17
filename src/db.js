@@ -110,7 +110,7 @@ export async function findByUsername(username) {
 }
 
 export async function testGetFlights() {
-  const q = "SELECT *, TO_CHAR(estimated, 'HH24:MI') FROM flights WHERE finished = false ORDER BY estimated";
+  const q = "SELECT *, TO_CHAR(estimated, 'HH24:MI') FROM flights WHERE finished = false AND GATE LIKE '___' ORDER BY estimated";
     try {
       const result = await query(q);
       console.log(result)
@@ -170,7 +170,7 @@ export async function markFlight(flightid, arrdep, gate) {
   try {
     const result = await query(q, [flightid, arrdep]);
     console.log('Flug merkt!', flightid, arrdep);
-    //checkClosingStatus(flightid, arrdep,)
+    checkClosingStatus(flightid, arrdep, gate)
     return result;
   } catch(e) {
     console.error('Gat ekki merkt flug', e);
@@ -178,14 +178,21 @@ export async function markFlight(flightid, arrdep, gate) {
   }
 }
 
-/*
-
-Sækja count í staðinn?
-
-Einangra Bókstaf úr Gate, finna LIKE '%GATE'
+export async function markGate(flightid, arrdep) {
+  const q = 'DELETE FROM FLIGHTS * WHERE flightid LIKE $1 AND arrDepBool LIKE $2';
+  try {
+    const result = await query(q, [flightid, arrdep]);
+    console.log('Hlið lokað!', flightid, arrdep);
+    return result;
+  } catch(e) {
+    console.error('Gat ekki lokað hliði', e);
+    return null;
+  }
+}
 
 export async function findByGate(gate) {
-  const q = 'SELECT * FROM FLIGHTS WHERE gate like $1 AND finished = false';
+  console.log(gate);
+  const q = 'SELECT * FROM FLIGHTS WHERE gate LIKE $1 AND finished = false';
   try {
     const result = await query(q, [gate]);
     return result;
@@ -196,12 +203,23 @@ export async function findByGate(gate) {
 }
 
 async function checkClosingStatus(flightid, arrDepBool, gate) {
+  var plusOne = new Date();
+  plusOne.setHours( plusOne.getHours() + 1 );
   let oldFlight = await findByGate(gate);
-  if (oldFlight === []) console.log('Null virkar');
+  if (oldFlight.length == 0) {
+    const q = 'INSERT INTO FLIGHTS(flightid, arrDepBool, gate, estimated, origin, status, finished) VALUES ($1, $2, $3, $4, $5, $6, $7)';
+    const values = [flightid, 'X', arrDepBool + gate.slice(1), plusOne, 'CloseGate', 'Gate To Close', false];
+
+    try {
+      const result = await query(q, values);
+      return result;
+    } catch (e) {
+      console.error('Gat ekki bætt við CLOSE GATE!', e);
+      return null;
+    }
+  }
   console.log(oldFlight);
 }
-
-*/
 
 async function checkUpdate(flightid, gate) {
   let oldFlight = await findGate(flightid);

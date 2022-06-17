@@ -2,6 +2,7 @@
 
 <div class="flights">
 	<% result.forEach(( item ) => { %>
+		<% if(item.arrdepbool != 'X') { %>
 		<div class="flightItem <%=item.gate.charAt(0)%>">
 			<div class="flightItemText">
 			<p> <%= item.flightid %> </p>
@@ -15,9 +16,30 @@
 			<form method="post" action="/admin/delete">
 			<input type="hidden" name="flightid" value="<%=item.flightid %>">
 			<input type="hidden" name="arrdep" value="<%=item.arrdepbool %>">
+			<input type="hidden" name="gate" value="<%=item.gate %>">
 			<button>Merkja</button>
 			</form>
 			</div>
 		</div>
+		<% } else { %> 
+			<div class="flightItem <%=item.arrdepbool%>">
+				<div class="flightItemText">
+					<p> Last Flight: <%= item.flightid %> </p>
+					<p> <%= item.status %> </p>
+					<p> <%= item.to_char %> </p>
+					<h3 class="flightGateP"> <%= item.gate %> </h3a>
+				</div>
+				<div class="flightItemBox">
+					<img src="./img/<%=item.arrdepbool%>.png">
+					<form method="post" action="/admin/closeg">
+					<input type="hidden" name="flightid" value="<%=item.flightid %>">
+					<input type="hidden" name="arrdep" value="<%=item.arrdepbool %>">
+					<input type="hidden" name="gate" value="<%=item.gate %>">
+					<button>Loka</button>
+					</form>
+			</div>
+		</div>
+
+		<% } %> 
 	<% }) %>
 </div>

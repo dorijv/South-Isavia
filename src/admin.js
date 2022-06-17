@@ -1,7 +1,7 @@
 import express from 'express';
 import { catchErrors } from './utils.js';
 //import { deleteRow, getSignatures, getTotalSignatureCount } from './db.js';
-import { testGetFlights, markFlight } from './db.js';
+import { testGetFlights, markFlight, markGate } from './db.js';
 import passport, { ensureLoggedIn } from './authentication.js';
 
 export const router = express.Router();
@@ -35,8 +35,14 @@ async function login(req, res) {
 
 async function deleteSignature(req, res) {
   const { flightid, arrdep, gate } = req.body;
+  await markFlight(flightid, arrdep, "_"+gate.slice(1));
 
-  await markFlight(flightid, arrdep, gate);
+  return res.redirect('/admin');
+}
+
+async function closeGate(req, res) {
+  const { flightid, arrdep } = req.body;
+  await markGate(flightid, arrdep);
 
   return res.redirect('/admin');
 }
@@ -49,6 +55,7 @@ router.use((req, res, next) => {
 router.get('/', ensureLoggedIn, catchErrors(admin));
 router.get('/login', catchErrors(login));
 router.post('/delete', ensureLoggedIn, catchErrors(deleteSignature));
+router.post('/closeg', ensureLoggedIn, catchErrors(closeGate));
 router.get('/:data', catchErrors(admin));
 
 router.post(
