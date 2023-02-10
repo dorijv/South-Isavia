@@ -9,7 +9,7 @@ I made this small application to make the process easier for my shift.
   it will be marked for everyone else.
 
 ### Screenshots of Project ###
-<img src="https://github.com/dorijv/South-Isavia/blob/main/not_authenticated.png?raw=true">
+<img src="https://github.com/dorijv/South-Isavia/blob/main/not_authenticated.png?raw=true" width="45%">
 
 ### DISCLAIMER ###
 
