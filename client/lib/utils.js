@@ -4,16 +4,6 @@ import { format } from 'date-fns';
  * Create an element with attributes and events, and append elements or
  * strings to it.
  *
- * Usage:
- *  const el = element(
- *    'button',
- *    { 'class': 'button' },
- *    { click: () => { ... } },
- *    'Takki'
- *   );
- *  returns
- *  <button class="button">Takki</button> with a click handler.
- *
  * @param {string} name Element name
  * @param {object} attributes Object containing attributes to attach to element.
  * @param {object} events Object of events to add to element.

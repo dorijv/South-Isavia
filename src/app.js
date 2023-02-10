@@ -40,11 +40,11 @@ app.set('views', join(path, '../views'));
 app.set('view engine', 'ejs');
 
 /**
- * Middleware sem sér um 404 villur.
+ * Middleware which handles 404 errors.
  *
- * @param {object} req Request hlutur
- * @param {object} res Response hlutur
- * @param {function} next Næsta middleware
+ * @param {object} req Request object
+ * @param {object} res Response object
+ * @param {function} next Next middleware
  */
 // eslint-disable-next-line no-unused-vars
 function notFoundHandler(req, res, next) {
@@ -53,12 +53,12 @@ function notFoundHandler(req, res, next) {
 }
 
 /**
- * Middleware sem sér um villumeðhöndlun.
+ * Middleware which takes care of error handling.
  *
- * @param {object} err Villa sem kom upp
- * @param {object} req Request hlutur
- * @param {object} res Response hlutur
- * @param {function} next Næsta middleware
+ * @param {object} err Relevant error
+ * @param {object} req Request object
+ * @param {object} res Response object
+ * @param {function} next Next middleware
  */
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
@@ -77,7 +77,6 @@ app.use('/admin', adminRouter);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-// Verðum að setja bara *port* svo virki á heroku
 app.listen(port, () => {
   console.info(`Server running at http://localhost:${port}/`);
 });

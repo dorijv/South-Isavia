@@ -1,5 +1,5 @@
 {
-  "name": "vef2-2021-v4-synilausn",
+  "name": "south-isavia",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -16,7 +16,7 @@
     "test": "eslint *.js **/*.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Halldór Jens Vilhjálmsson",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.12.17",

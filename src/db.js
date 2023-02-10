@@ -51,36 +51,6 @@ export async function insert(flightID, arrDepBool, origin, status, scheduled, es
   return null;
 }
 
-export async function getSignatures(offset = 0, limit = 50) {
-  try {
-    const q = 'SELECT * FROM signatures ORDER BY signed DESC, id OFFSET $1 LIMIT $2 ';
-    const result = await query(q, [offset, limit]);
-
-    return result;
-  } catch (e) {
-    console.error('Error selecting', e);
-  }
-  return null;
-}
-
-export async function getTotalSignatureCount() {
-  try {
-    const q = 'SELECT COUNT(*) FROM signatures';
-    const result = await query(q);
-
-    return result;
-  } catch (e) {
-    console.error('Error selecting', e);
-  }
-  return null;
-}
-
-export async function deleteRow(id) {
-  const q = 'DELETE FROM signatures WHERE id = $1';
-
-  return query(q, id);
-}
-
 export async function findById(id) {
   const q = 'SELECT * FROM users WHERE id = $1';
 
@@ -109,11 +79,10 @@ export async function findByUsername(username) {
   }
 }
 
-export async function testGetFlights() {
+export async function getFlights() {
   const q = "SELECT *, TO_CHAR(estimated, 'HH24:MI') FROM flights WHERE finished = false AND GATE LIKE '___' ORDER BY estimated";
     try {
       const result = await query(q);
-      console.log(result)
       return result;
   } catch (e) {
       console.error('Gat ekki sótt flug!');
@@ -127,7 +96,7 @@ export async function removeOldFlights() {
     const result = await query(q);
     return result;
   } catch (e) {
-    console.error('db.js REMOVEOLDFLIGHTS: Gat ekki eytt flugum');
+    console.error('Gat ekki eytt flugum');
     return null;
   }
 }
@@ -218,7 +187,6 @@ async function checkClosingStatus(flightid, arrDepBool, gate) {
       return null;
     }
   }
-  console.log(oldFlight);
 }
 
 async function checkUpdate(flightid, gate) {

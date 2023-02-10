@@ -1,3 +1,9 @@
+/**
+ * Proxy to circumvent the CORS policy
+ * 
+ * @Author Halldór Jens Vilhjálmsson
+ */
+
 import express from 'express';
 import fetch from 'node-fetch';
 import { timerStart, timerEnd } from './time.js';
@@ -5,8 +11,8 @@ import { insert, removeOldFlights } from './db.js';
 
 export const router = express.Router();
 
-const arrivalURL = 'https://www.isavia.is/fids/arrivals.aspx';
-const departureURL = 'https://www.isavia.is/fids/departures.aspx';
+const arrivalURL = 'REDACTED';
+const departureURL = 'REDACTED';
 
 const toTimestamp = (strDate) => {
   const dt = Date.parse(strDate);
@@ -20,6 +26,11 @@ async function fetchFrom(url) {
   return resJSON;
 }
 
+/**
+ * Router serving proxy.
+ * 
+ * @name get/proxy
+ */
 router.get('/', async (req, res) => {
   const timer = timerStart();
   let arrJSON;
@@ -39,10 +50,8 @@ router.get('/', async (req, res) => {
     elapsed
   };
 
-  // Bæta við athugun á hvort hlið breyttust
-
   result.arrJSON.Items.forEach((flight) => {
-    if( flight.Gate.charAt(0) !== 'D' && flight.Gate.charAt(0) !== 'C' && flight.Gate !== 'A15') return;
+    if( 'REDACTED' ) return;
     if (flight.Estimated == null) flight.Estimated = flight.Scheduled;
     var plusEight = new Date();
     plusEight.setHours( plusEight.getHours() + 8 );
@@ -53,7 +62,7 @@ router.get('/', async (req, res) => {
   });
 
   result.depJSON.Items.forEach((flight) => {
-    if( flight.Gate.charAt(0) !== 'D' && flight.Gate.charAt(0) !== 'C' && flight.Gate !== 'A15') return;
+    if( 'REDACTED') return;
     if (flight.Estimated == null) flight.Estimated = flight.Scheduled;
     var plusEight = new Date();
     plusEight.setHours( plusEight.getHours() + 8 );
@@ -64,9 +73,7 @@ router.get('/', async (req, res) => {
     }
   });
 
-  // Remove old flights
   removeOldFlights();
-
 
   return res.json(result);
 });
