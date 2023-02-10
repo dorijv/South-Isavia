@@ -9,10 +9,7 @@ I made this small application to make the process easier for my shift.
   it will be marked for everyone else.
 
 ### Screenshots of Project ###
-![Project-showcase](display_main_screen.png | width=100)
-![Project-showcase](display_close_gate.png | width=100)
-![Project-showcase](not_authenticated.png | width=100)
-![Project-showcase](simple_login_page.png | width=100)
+<img src="https://github.com/dorijv/South-Isavia/blob/main/not_authenticated.png?raw=true">
 
 ### DISCLAIMER ###
 
