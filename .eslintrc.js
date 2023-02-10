@@ -1,3 +1,9 @@
+/**
+ * ESLint provided in an old assignment.
+ * 
+ * @Author Ólafur Sverrir Kjartansson
+*/
+
 module.exports = {
   extends: [
     'airbnb-base',
